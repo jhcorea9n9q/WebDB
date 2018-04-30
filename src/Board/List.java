@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.HashMap;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +21,15 @@ public class List extends HttpServlet {
 	private String SQL, HTML;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String BoardNo = request.getParameter("번호");
+			if (BoardNo == null) {
+				request.setAttribute("번호", "");
+			} else {
+				request.setAttribute("번호", BoardNo);
+			}
+		
+		
 		DBConnection DBC = new DBConnection();
 		
 		try {
@@ -36,6 +44,7 @@ public class List extends HttpServlet {
 					System.out.println(LIST.get(i));
 					HTML += LIST.get(i) + "<br>";
 				}
+				
 //				response.setContentType("text/html; charset=UTF-8"); 
 //				response.setCharacterEncoding("UTF-8");
 //				response.getWriter().append(HTML);
